@@ -1,0 +1,6 @@
+*.ps1
+*.cjs
+*.js
+*.py
+columns_list.txt
+document.html

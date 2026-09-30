@@ -1,4 +1,17 @@
 spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: YOUR_EMAIL@gmail.com
+    password: YOUR_APP_PASSWORD
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            trust: smtp.gmail.com
   application:
     name: inventory-service
 
@@ -10,7 +23,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: validate # We manage schema via schema.sql in Docker/Flyway, so just validate entities
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
@@ -27,3 +40,4 @@ app:
   jwt:
     secret: "placeholder-secret-key-will-be-replaced-in-env"
     expiration: 86400000 # 24 hours
+

@@ -1,37 +1,106 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import Layout from './components/Layout';
+import Auth from './pages/Auth';
+import Dashboard from './pages/Dashboard';
+import ProductCatalog from './pages/ProductCatalog';
+import Inventory from './pages/Inventory';
+import Orders from './pages/Orders';
+import Suppliers from './pages/Suppliers';
+import SupplierPortal from './pages/SupplierPortal';
+import Fulfillment from './pages/Fulfillment';
+import Reports from './pages/Reports';
+import Profile from './pages/Profile';
+import Users from './pages/Users';
+import CustomerPortal from './pages/CustomerPortal';
+import PurchaseOrders from './pages/PurchaseOrders';
+import { AuthProvider, useAuth } from './store/AuthContext';
+
+import SupplierDashboard from './pages/supplier/SupplierDashboard';
+import SupplierPurchaseOrders from './pages/supplier/SupplierPurchaseOrders';
+import SupplierPODetails from './pages/supplier/SupplierPODetails';
+
+// Protect routes that require login
+const ProtectedRoute = () => {
+  const { user } = useAuth();
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+  return <Outlet />;
+};
+
+// Protect routes by specific roles
+const PageWrapper = ({ children }: { children: React.ReactNode }) => (
+  <div className="max-w-7xl mx-auto px-6 lg:px-10 py-10 w-full">
+    {children}
+  </div>
+);
+
+const RoleRoute = ({ allowedRoles }: { allowedRoles: string[] }) => {
+  const { user } = useAuth();
+  if (!user) return <Navigate to="/login" replace />;
+  
+  const hasRole = user.roles.some((role: string) => allowedRoles.includes(role));
+  if (!hasRole) {
+    if (user.roles.includes('ROLE_CUSTOMER')) return <Navigate to="/customers/portal" replace />;
+    if (user.roles.includes('ROLE_SUPPLIER')) return <Navigate to="/supplier/dashboard" replace />;
+    return <Navigate to="/dashboard" replace />;
+  }
+  return <Outlet />;
+};
+
+function AppRoutes() {
+  return (
+    <Routes>
+      <Route path="/login" element={<Auth />} />
+      
+      {/* Protected Routes */}
+      <Route element={<ProtectedRoute />}>
+        <Route path="/" element={<Layout />}>
+          {/* Admin Only Routes */}
+          <Route element={<RoleRoute allowedRoles={['ROLE_ADMIN']} />}>
+            <Route index element={<Navigate to="/dashboard" replace />} />
+            <Route path="dashboard" element={<PageWrapper><Dashboard /></PageWrapper>} />
+                        <Route path="inventory" element={<PageWrapper><Inventory /></PageWrapper>} />
+            <Route path="orders" element={<PageWrapper><Orders /></PageWrapper>} />
+            <Route path="suppliers" element={<PageWrapper><Suppliers /></PageWrapper>} />
+            <Route path="procurement" element={<PageWrapper><PurchaseOrders /></PageWrapper>} />
+            <Route path="users" element={<PageWrapper><Users /></PageWrapper>} />
+            <Route path="fulfillment" element={<PageWrapper><Fulfillment /></PageWrapper>} />
+            <Route path="reports" element={<PageWrapper><Reports /></PageWrapper>} />
+          </Route>
+
+          {/* Supplier Only Routes */}
+          <Route element={<RoleRoute allowedRoles={['ROLE_SUPPLIER']} />}>
+            <Route path="supplier/dashboard" element={<PageWrapper><SupplierDashboard /></PageWrapper>} />
+            <Route path="supplier/purchase-orders" element={<PageWrapper><SupplierPurchaseOrders /></PageWrapper>} />
+            <Route path="supplier/purchase-orders/:id" element={<PageWrapper><SupplierPODetails /></PageWrapper>} />
+          </Route>
+
+          <Route path="customers/portal" element={<CustomerPortal />} />
+
+          <Route path="products" element={<PageWrapper><ProductCatalog /></PageWrapper>} />
+          <Route path="profile" element={<PageWrapper><Profile /></PageWrapper>} />
+          <Route path="*" element={<div className="p-8 text-center text-gray-500">Module Under Construction</div>} />
+        </Route>
+      </Route>
+    </Routes>
+  );
+}
 
 function App() {
-  const [healthStatus, setHealthStatus] = useState<string>('Checking...');
-
-  useEffect(() => {
-    // Basic health check to the Spring Boot Backend
-    axios.get('http://localhost:8080/api/health')
-      .then(response => {
-        setHealthStatus(response.data.status === 'UP' ? 'Connected \u2714\uFE0F' : 'Down \u274C');
-      })
-      .catch(error => {
-        console.error("Health check failed", error);
-        setHealthStatus('Disconnected \u274C');
-      });
-  }, []);
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md max-w-md w-full text-center">
-        <h1 className="text-2xl font-bold text-gray-800 mb-4">Retail Inventory System</h1>
-        <p className="text-gray-600 mb-6">Frontend is running successfully.</p>
-        
-        <div className="bg-gray-50 border border-gray-200 p-4 rounded-md">
-          <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">Backend Connection Status</h2>
-          <div className="flex items-center justify-center space-x-2">
-            <span className={`h-3 w-3 rounded-full ${healthStatus.includes('Connected') ? 'bg-green-500' : 'bg-red-500'}`}></span>
-            <span className="font-medium text-gray-700">{healthStatus}</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <AuthProvider>
+      <Router>
+        <AppRoutes />
+      </Router>
+    </AuthProvider>
   );
 }
 
 export default App;
+
+
+
+
+
