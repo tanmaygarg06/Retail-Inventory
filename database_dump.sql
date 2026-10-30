@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict 50BzBHqkglwAbwl7kHiSHkyUGaDqEDBcABvKBfMzXK0n3lpZllHkjad8hcl0qui
+\restrict WGeatoYraR6qAa86qM0oBOVqSqiHY2BJIi3e8SzifXIuT3pTfKwh33wdhtcvyj8
 
 -- Dumped from database version 15.19
 -- Dumped by pg_dump version 15.19
@@ -31,17 +31,17 @@ INSERT INTO public.suppliers VALUES (3, 'Samsung Electronics', 'Han Jong-hee', '
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: rism_user
 --
 
-INSERT INTO public.users VALUES (8, 'Ram', '$2a$10$sX8g2E6rG/T/M8k292Z.0ee6n/T8q4b8uJ6u5P3vB3/96b9n4kR/S', 'Ram@gmail.com', 'SUSPENDED', '2026-09-29 11:40:13.219687', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO public.users VALUES (12, 'Rishi', '$2a$10$hpzaP6k/FrLxxQsVrIZfM.BxR54kWsRHKcGN1UzHPXLSQQ1YgrKsK', 'tanmayg@gmail.com', 'ACTIVE', '2026-10-01 11:42:29.942805', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO public.users VALUES (11, 'TanmayGarg', '$2a$10$QgxxKx/1.BoUlV90ZVuYweH.mTFWK/VjKKZZ5QdytI2rNEhOHoyye', 'gargtanmay644@gmail.com', 'SUSPENDED', '2026-10-01 11:12:59.228374', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO public.users VALUES (9, 'tanmay', '$2a$10$.cskwiQW715RO7oX6kwdZOuHNdHInhlCjGEd49erEl.ZPRYI7eDZi', 'tanmaygemacc@gmail.com', 'ACTIVE', '2026-10-01 11:06:26.243426', NULL, NULL, 'Tanmay', '', 'Ghaziabad');
-INSERT INTO public.users VALUES (13, 'Rishi Raj', '$2a$10$4FwsMUqTZs6atsQvNtFTjeAfW3ptoe3gLckKThAmtANDh0bidXW/K', 'RishiRaj@gmail.com', 'ACTIVE', '2026-10-01 13:47:18.43181', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO public.users VALUES (7, 'Tanmay Garg', '$2a$10$sX8g2E6rG/T/M8k292Z.0ee6n/T8q4b8uJ6u5P3vB3/96b9n4kR/S', 'tanmaylkgarg_customer@gmail.com', 'SUSPENDED', '2026-09-29 11:24:42.358771', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO public.users VALUES (3, 'tanmay_garg06', '$2b$10$sdUcDcAi4pPSnNxr8PBMRu836EUh4MoMxp6oaelDn/sphZLSVQ8lu', 'tanmaylkgarg@gmail.com', 'ACTIVE', '2026-09-28 16:13:38.585507', '2026-09-29 15:46:11.537717', NULL, NULL, NULL, NULL);
-INSERT INTO public.users VALUES (14, 'Tanmay1', '$2a$10$/dI/WPGMSUzgVQ6dspR/3eGiOEJ8jSdTUvJ7sl4g7XoT5Hnpz8Fl.', 'tanmaygarg@gmail.com', 'ACTIVE', '2026-10-30 07:24:52.003521', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO public.users VALUES (1, 'admin', '$2a$10$sX8g2E6rG/T/M8k292Z.0ee6n/T8q4b8uJ6u5P3vB3/96b9n4kR/S', 'admin@retailos.com', 'SUSPENDED', '2026-09-28 08:59:20.413046', '2026-09-28 08:59:20.413046', NULL, NULL, NULL, NULL);
-INSERT INTO public.users VALUES (6, 'test_customer', '$2a$10$sX8g2E6rG/T/M8k292Z.0ee6n/T8q4b8uJ6u5P3vB3/96b9n4kR/S', 'test@test.com', 'SUSPENDED', '2026-09-29 11:23:27.368656', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO public.users VALUES (4, 'Tanmay', '$2a$10$sX8g2E6rG/T/M8k292Z.0ee6n/T8q4b8uJ6u5P3vB3/96b9n4kR/S', 'gargtanmay65@gmail.com', 'ACTIVE', '2026-09-28 19:53:26.394149', '2026-09-28 19:53:26.394149', NULL, 'Tanmay Garg', NULL, 'Govind Puram');
+INSERT INTO public.users VALUES (8, 'Ram', '$2b$10$GV1PI7r6fnRZPMe5XZDsiOxTDz97JDFMk9i45GrMBlyG.z9TKH8My', 'Ram@gmail.com', 'ACTIVE', '2026-09-29 11:40:13.219687', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO public.users VALUES (12, 'Rishi', '$2b$10$GV1PI7r6fnRZPMe5XZDsiOxTDz97JDFMk9i45GrMBlyG.z9TKH8My', 'tanmayg@gmail.com', 'ACTIVE', '2026-10-01 11:42:29.942805', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO public.users VALUES (11, 'TanmayGarg', '$2b$10$GV1PI7r6fnRZPMe5XZDsiOxTDz97JDFMk9i45GrMBlyG.z9TKH8My', 'gargtanmay644@gmail.com', 'ACTIVE', '2026-10-01 11:12:59.228374', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO public.users VALUES (9, 'tanmay', '$2b$10$GV1PI7r6fnRZPMe5XZDsiOxTDz97JDFMk9i45GrMBlyG.z9TKH8My', 'tanmaygemacc@gmail.com', 'ACTIVE', '2026-10-01 11:06:26.243426', NULL, NULL, 'Tanmay', '', 'Ghaziabad');
+INSERT INTO public.users VALUES (13, 'Rishi Raj', '$2b$10$GV1PI7r6fnRZPMe5XZDsiOxTDz97JDFMk9i45GrMBlyG.z9TKH8My', 'RishiRaj@gmail.com', 'ACTIVE', '2026-10-01 13:47:18.43181', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO public.users VALUES (7, 'Tanmay Garg', '$2b$10$GV1PI7r6fnRZPMe5XZDsiOxTDz97JDFMk9i45GrMBlyG.z9TKH8My', 'tanmaylkgarg_customer@gmail.com', 'ACTIVE', '2026-09-29 11:24:42.358771', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO public.users VALUES (3, 'tanmay_garg06', '$2b$10$GV1PI7r6fnRZPMe5XZDsiOxTDz97JDFMk9i45GrMBlyG.z9TKH8My', 'tanmaylkgarg@gmail.com', 'ACTIVE', '2026-09-28 16:13:38.585507', '2026-09-29 15:46:11.537717', NULL, NULL, NULL, NULL);
+INSERT INTO public.users VALUES (14, 'Tanmay1', '$2b$10$GV1PI7r6fnRZPMe5XZDsiOxTDz97JDFMk9i45GrMBlyG.z9TKH8My', 'tanmaygarg@gmail.com', 'ACTIVE', '2026-10-30 07:24:52.003521', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO public.users VALUES (1, 'admin', '$2b$10$GV1PI7r6fnRZPMe5XZDsiOxTDz97JDFMk9i45GrMBlyG.z9TKH8My', 'admin@retailos.com', 'ACTIVE', '2026-09-28 08:59:20.413046', '2026-09-28 08:59:20.413046', NULL, NULL, NULL, NULL);
+INSERT INTO public.users VALUES (6, 'test_customer', '$2b$10$GV1PI7r6fnRZPMe5XZDsiOxTDz97JDFMk9i45GrMBlyG.z9TKH8My', 'test@test.com', 'ACTIVE', '2026-09-29 11:23:27.368656', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO public.users VALUES (4, 'Tanmay', '$2b$10$GV1PI7r6fnRZPMe5XZDsiOxTDz97JDFMk9i45GrMBlyG.z9TKH8My', 'gargtanmay65@gmail.com', 'ACTIVE', '2026-09-28 19:53:26.394149', '2026-09-28 19:53:26.394149', NULL, 'Tanmay Garg', NULL, 'Govind Puram');
 
 
 --
@@ -425,5 +425,5 @@ SELECT pg_catalog.setval('public.warehouses_id_seq', 3, true);
 -- PostgreSQL database dump complete
 --
 
-\unrestrict 50BzBHqkglwAbwl7kHiSHkyUGaDqEDBcABvKBfMzXK0n3lpZllHkjad8hcl0qui
+\unrestrict WGeatoYraR6qAa86qM0oBOVqSqiHY2BJIi3e8SzifXIuT3pTfKwh33wdhtcvyj8
 

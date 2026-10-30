@@ -11,19 +11,15 @@ A modular monolithic enterprise application designed for end-to-end retail inven
 
 ---
 
-## 🔑 Administrator Portal Credentials
+## 🔑 System Access & Credentials
 
-To evaluate or view the **Admin Command Center**, use the following administrator credentials:
+All system usernames, passwords, and assigned roles (including Administrator, Supplier/Vendor, and Customer accounts) are stored **exclusively in [`password.txt`](password.txt)**.
 
-| Field | Value |
-| :--- | :--- |
-| **Portal Login URL** | [http://localhost:5173/login](http://localhost:5173/login) |
-| **Username** | `tanmay_garg06` |
-| **Password** | `$Tanmay@06` |
-| **Email** | `tanmaylkgarg@gmail.com` |
-| **Role** | `ROLE_ADMIN` (Full System Administration) |
-
-> 📌 **Complete Account Directory:** Full list of demo accounts (Customer, Supplier, Warehouse Staff) is maintained in **[`PASSWORDS.md`](PASSWORDS.md)** and **[`password.txt`](password.txt)**.
+| Portal | URL | Access Directory |
+| :--- | :--- | :--- |
+| **Authentication & Sign-in** | [http://localhost:5173/login](http://localhost:5173/login) | Refer to [`password.txt`](password.txt) |
+| **Backend REST API** | [http://localhost:8080](http://localhost:8080) | Bearer JWT required for protected routes |
+| **Swagger UI Documentation** | [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html) | OpenAPI 3.0 Documentation |
 
 ---
 
@@ -131,7 +127,7 @@ Make sure the following tools are installed on your machine:
 ---
 
 ### Step 1: Start the PostgreSQL Database
-Open a terminal in the project root directory (`E:\HCL Project`):
+Open a terminal in the project root directory:
 
 ```bash
 # Start Docker Desktop if not already running
@@ -188,12 +184,10 @@ The frontend application will be live at **`http://localhost:5173`**.
 
 ---
 
-### Step 4: Log into the Admin Portal
-1. Open your browser and go to: **`http://localhost:5173/login`**
-2. Enter the Administrator credentials:
-   - **Username**: `tanmay_garg06`
-   - **Password**: `$Tanmay@06`
-3. Click **SIGN IN** to access the full **Enterprise Command Center**.
+### Step 4: Log into the Application
+1. Open your browser and navigate to: **`http://localhost:5173/login`**
+2. Refer to **[`password.txt`](password.txt)** for available usernames and login credentials across Administrator, Supplier, and Customer roles.
+3. Click **SIGN IN** to access the corresponding workspace.
 
 ---
 
@@ -256,8 +250,7 @@ HCL Project/
 │   └── seed.sql                           # Initial seed records
 ├── database_dump.sql                      # Complete live PostgreSQL data dump
 ├── docker-compose.yml                     # Multi-container Docker configuration
-├── PASSWORDS.md                           # Credentials and account directory
-├── password.txt                           # Quick credentials text reference
+├── password.txt                           # Exclusive credentials directory
 ├── Retail Inventory SRS.pdf               # Software Requirements Specification
 ├── Retail Inventory PPT.pptx              # Presentation Slide Deck
 ├── Tanmay_Garg_SRS_Report.docx            # Detailed SRS Word Document
@@ -292,12 +285,12 @@ The repository includes all capstone project documentation:
 1. **[`Retail Inventory SRS.pdf`](Retail%20Inventory%20SRS.pdf)** - Complete IEEE-standard Software Requirements Specification.
 2. **[`Tanmay_Garg_SRS_Report.docx`](Tanmay_Garg_SRS_Report.docx)** - Full documentation report in Word format.
 3. **[`Retail Inventory PPT.pptx`](Retail%20Inventory%20PPT.pptx)** - Comprehensive presentation slide deck for review and defense.
-4. **[`PASSWORDS.md`](PASSWORDS.md)** - Credentials directory for reviewers and evaluators.
+4. **[`password.txt`](password.txt)** - Exclusive credentials directory for reviewers and evaluators.
 
 ---
 
 ## 👨‍💻 Project Author
 - **Developer:** Tanmay Garg
 - **Email:** [tanmaylkgarg@gmail.com](mailto:tanmaylkgarg@gmail.com)
-- **GitHub:** [@tanmaygarg06](https://github.com/tanmaygarg06)
+- **GitHub:** [@tanmaygarg06](https://github.com/tanmaygarg06/Retail-Inventory.git)
 - **Repository:** [https://github.com/tanmaygarg06/Retail-Inventory.git](https://github.com/tanmaygarg06/Retail-Inventory.git)
