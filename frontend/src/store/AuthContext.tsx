@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (token && !localStorage.getItem('user')) {
+    if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       axios.get('http://localhost:8080/api/users/me')
         .then(res => {

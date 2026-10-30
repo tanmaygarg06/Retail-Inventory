@@ -77,21 +77,43 @@ public class OrderService {
         }
         
 
-        if (!isNew && oldStatus != null && !oldStatus.equals(entity.getStatus()) && ("SHIPPED".equalsIgnoreCase(entity.getStatus()) || "DELIVERED".equalsIgnoreCase(entity.getStatus()))) {
-            if (entity.getItems() != null) {
-                for (OrderItem item : entity.getItems()) {
-                    if (item.getProduct() != null && item.getQuantity() != null) {
-                        List<Inventory> inventories = inventoryRepository.findByProductId(item.getProduct().getId());
-                        int quantityToDeduct = item.getQuantity();
-                        for (Inventory inv : inventories) {
-                            int reserved = inv.getReservedQuantity() != null ? inv.getReservedQuantity() : 0;
-                            int total = inv.getTotalQuantity() != null ? inv.getTotalQuantity() : 0;
-                            if (quantityToDeduct > 0 && reserved > 0) {
-                                int deduct = Math.min(reserved, quantityToDeduct);
-                                inv.setReservedQuantity(reserved - deduct);
-                                inv.setTotalQuantity(total - deduct);
-                                quantityToDeduct -= deduct;
-                                inventoryRepository.save(inv);
+        if (!isNew && oldStatus != null && !oldStatus.equals(entity.getStatus())) {
+            if ("SHIPPED".equalsIgnoreCase(entity.getStatus()) || "DELIVERED".equalsIgnoreCase(entity.getStatus())) {
+                if (entity.getItems() != null) {
+                    for (OrderItem item : entity.getItems()) {
+                        if (item.getProduct() != null && item.getQuantity() != null) {
+                            List<Inventory> inventories = inventoryRepository.findByProductId(item.getProduct().getId());
+                            int quantityToDeduct = item.getQuantity();
+                            for (Inventory inv : inventories) {
+                                int reserved = inv.getReservedQuantity() != null ? inv.getReservedQuantity() : 0;
+                                int total = inv.getTotalQuantity() != null ? inv.getTotalQuantity() : 0;
+                                if (quantityToDeduct > 0 && reserved > 0) {
+                                    int deduct = Math.min(reserved, quantityToDeduct);
+                                    inv.setReservedQuantity(reserved - deduct);
+                                    inv.setTotalQuantity(total - deduct);
+                                    quantityToDeduct -= deduct;
+                                    inventoryRepository.save(inv);
+                                }
+                            }
+                        }
+                    }
+                }
+            } else if ("CANCELLED".equalsIgnoreCase(entity.getStatus())) {
+                if (entity.getItems() != null) {
+                    for (OrderItem item : entity.getItems()) {
+                        if (item.getProduct() != null && item.getQuantity() != null) {
+                            List<Inventory> inventories = inventoryRepository.findByProductId(item.getProduct().getId());
+                            int quantityToRevert = item.getQuantity();
+                            for (Inventory inv : inventories) {
+                                int reserved = inv.getReservedQuantity() != null ? inv.getReservedQuantity() : 0;
+                                int available = inv.getAvailableQuantity() != null ? inv.getAvailableQuantity() : 0;
+                                if (quantityToRevert > 0 && reserved > 0) {
+                                    int revert = Math.min(reserved, quantityToRevert);
+                                    inv.setReservedQuantity(reserved - revert);
+                                    inv.setAvailableQuantity(available + revert);
+                                    quantityToRevert -= revert;
+                                    inventoryRepository.save(inv);
+                                }
                             }
                         }
                     }

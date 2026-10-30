@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, ShoppingCart, Calendar, IndianRupee, Clock, PackageCheck } from 'lucide-react';
+import { Search, ShoppingCart, Calendar, IndianRupee, Clock, PackageCheck, XCircle } from 'lucide-react';
 import axios from 'axios';
 
 export default function Orders() {
@@ -17,6 +17,18 @@ export default function Orders() {
       console.error(err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleCancelOrder = async (id: number) => {
+    if (confirm('Are you sure you want to cancel this order? This will revert the reserved inventory.')) {
+      try {
+        await axios.put(`http://localhost:8080/api/orders/${id}/status`, { status: 'CANCELLED' });
+        fetchOrders();
+      } catch (err) {
+        console.error(err);
+        alert('Failed to cancel order');
+      }
     }
   };
 
@@ -49,13 +61,14 @@ export default function Orders() {
               <th className="p-4">Customer ID</th>
               <th className="p-4">Total Amount</th>
               <th className="p-4">Fulfillment Status</th>
+              <th className="p-4 text-right">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
             {loading ? (
-              <tr><td colSpan={5} className="p-8 text-center text-slate-500">Loading order history...</td></tr>
+              <tr><td colSpan={6} className="p-8 text-center text-slate-500">Loading order history...</td></tr>
             ) : orders.length === 0 ? (
-              <tr><td colSpan={5} className="p-8 text-center text-slate-500">No orders found.</td></tr>
+              <tr><td colSpan={6} className="p-8 text-center text-slate-500">No orders found.</td></tr>
             ) : (
               orders.map((o, idx) => (
                 <tr key={idx} className="hover:bg-slate-50 transition-colors">
@@ -76,11 +89,20 @@ export default function Orders() {
                     <span className={`inline-flex items-center px-2 py-1 rounded-md text-xs font-bold uppercase ${
                       o.status === 'DELIVERED' ? 'bg-emerald-50 text-emerald-700' :
                       o.status === 'SHIPPED' ? 'bg-blue-50 text-blue-700' :
+                      o.status === 'CANCELLED' ? 'bg-rose-50 text-rose-700' :
                       'bg-amber-50 text-amber-700'
                     }`}>
-                      {o.status === 'DELIVERED' ? <PackageCheck className="w-3 h-3 mr-1" /> : <Clock className="w-3 h-3 mr-1" />}
+                      {o.status === 'DELIVERED' ? <PackageCheck className="w-3 h-3 mr-1" /> : 
+                       o.status === 'CANCELLED' ? <XCircle className="w-3 h-3 mr-1" /> : <Clock className="w-3 h-3 mr-1" />}
                       {o.status || 'PENDING'}
                     </span>
+                  </td>
+                  <td className="p-4 text-right">
+                    {o.status !== 'DELIVERED' && o.status !== 'CANCELLED' && o.status !== 'SHIPPED' && (
+                      <button onClick={() => handleCancelOrder(o.id)} className="text-rose-600 hover:text-rose-800 hover:bg-rose-50 px-2 py-1 rounded-md text-xs font-bold uppercase transition-colors inline-flex items-center">
+                        <XCircle className="w-3 h-3 mr-1" /> Cancel
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))
@@ -91,4 +113,6 @@ export default function Orders() {
     </div>
   );
 }
+
+
 

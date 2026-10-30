@@ -215,6 +215,12 @@ export default function Layout() {
               >
                 Dashboard
               </Link>
+              <Link
+                to="/products"
+                className="hover:text-slate-900 transition-colors uppercase"
+              >
+                Catalog
+              </Link>
               
               <Link
                 to="/inventory"

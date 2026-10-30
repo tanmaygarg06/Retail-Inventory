@@ -98,7 +98,7 @@ export default function Suppliers() {
                       </span>
                     </div>
                   </div>
-                  <div className="flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="flex space-x-1 transition-opacity">
                     <button className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded"><Edit className="w-4 h-4" /></button>
                     <button onClick={() => handleDelete(s.id)} className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded"><Trash2 className="w-4 h-4" /></button>
                   </div>
@@ -170,5 +170,7 @@ export default function Suppliers() {
     </div>
   );
 }
+
+
 
 

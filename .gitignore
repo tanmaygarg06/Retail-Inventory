@@ -4,3 +4,6 @@
 *.py
 columns_list.txt
 document.html
+
+hash_temp/
+fix_pwd*.sql

@@ -8,7 +8,7 @@ export default function ProductCatalog() {
 
   // Form State
   const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState({ name: '', description: '', sku: '', price: '', category: '' });
+  const [formData, setFormData] = useState({ name: '', description: '', sku: '', price: '', category: '', imageUrl: '' });
 
   const fetchProducts = async () => {
     try {
@@ -36,6 +36,7 @@ export default function ProductCatalog() {
         description: formData.description,
         sku: formData.sku,
         sellingPrice: parseFloat(formData.price),
+        imageUrl: formData.imageUrl,
         costPrice: parseFloat(formData.price) * 0.8, // Dummy cost price
         status: 'ACTIVE',
         reorderLevel: 10,
@@ -43,7 +44,7 @@ export default function ProductCatalog() {
         // Actually, if category_id is nullable, we can omit it. Let's send it empty.
       });
       setShowModal(false);
-      setFormData({ name: '', description: '', sku: '', price: '', category: '' });
+      setFormData({ name: '', description: '', sku: '', price: '', category: '', imageUrl: '' });
       fetchProducts(); // Refresh list
     } catch (err) {
       console.error(err);
@@ -185,6 +186,9 @@ export default function ProductCatalog() {
                 <input type="number" step="0.01" required value={formData.price} onChange={e => setFormData({...formData, price: e.target.value})} className="w-full px-3 py-2 border border-slate-200 rounded-md text-sm focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600" />
               </div>
               <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Image URL</label>
+                <input type="url" value={formData.imageUrl} onChange={e => setFormData({...formData, imageUrl: e.target.value})} placeholder="https://example.com/image.jpg" className="w-full px-3 py-2 border border-slate-200 rounded-md text-sm focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600" />
+                
                 <label className="block text-sm font-medium text-slate-700 mb-1">Description</label>
                 <textarea rows={3} value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} className="w-full px-3 py-2 border border-slate-200 rounded-md text-sm focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"></textarea>
               </div>
@@ -199,6 +203,7 @@ export default function ProductCatalog() {
     </div>
   );
 }
+
 
 
 

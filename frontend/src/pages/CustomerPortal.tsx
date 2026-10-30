@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingBag, Star, ShoppingCart, Truck, ShieldCheck, RefreshCw, Gift, Percent, ArrowRight, CheckCircle2, Package, MapPin, ChevronDown, ChevronUp } from 'lucide-react';
+import { ShoppingBag, Star, ShoppingCart, Truck, ShieldCheck, RefreshCw, Gift, Percent, ArrowRight, CheckCircle2, Package, MapPin, ChevronDown, ChevronUp, XCircle } from 'lucide-react';
 import axios from 'axios';
 import { useAuth } from '../store/AuthContext';
 import { useLocation } from 'react-router-dom';
@@ -88,6 +88,7 @@ export default function CustomerPortal() {
                             o.status === 'SHIPPED' ? 'bg-emerald-100 text-emerald-800' :
                             o.status === 'PACKED' ? 'bg-blue-100 text-blue-800' :
                             o.status === 'DELIVERED' ? 'bg-slate-900 text-white' :
+                            o.status === 'CANCELLED' ? 'bg-rose-100 text-rose-800' :
                             'bg-amber-100 text-amber-800'
                           )}>
                             {o.status}
@@ -98,6 +99,16 @@ export default function CustomerPortal() {
                         <tr>
                           <td colSpan={4} className="p-0 border-b border-slate-200">
                             <div className="bg-slate-50/50 p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 shadow-inner">
+                              {o.status === 'CANCELLED' ? (
+                                <div className="flex-1 w-full text-center py-8 bg-rose-50/50 rounded-2xl border border-rose-100 border-dashed">
+                                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-rose-100 text-rose-600 mb-3">
+                                    <XCircle className="w-6 h-6" />
+                                  </div>
+                                  <h4 className="text-lg font-black text-rose-900 mb-1">Order Cancelled</h4>
+                                  <p className="text-sm text-rose-600/80 font-medium max-w-md mx-auto">This order was cancelled by the administrator. Any reserved stock has been released.</p>
+                                </div>
+                              ) : (
+                                <>
                               <div className="flex-1 w-full relative pl-2 pr-4">
                                 <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-6">Order Tracking Timeline</h4>
                                 <div className="relative flex justify-between items-start w-full px-4 overflow-x-auto min-w-[400px]">
@@ -150,6 +161,8 @@ export default function CustomerPortal() {
                                   <p className="flex justify-between mt-2 pt-2 border-t border-slate-100"><span className="text-slate-500 font-bold">Est. Arrival:</span><span className="font-black text-emerald-600">3-4 Days</span></p>
                                 </div>
                               </div>
+                                </>
+                              )}
                             </div>
                           </td>
                         </tr>
@@ -386,6 +399,9 @@ export default function CustomerPortal() {
     </div>
   );
 }
+
+
+
 
 
 

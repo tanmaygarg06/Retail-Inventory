@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Truck, CheckCircle2, Clock, PackageCheck, ArrowRight } from 'lucide-react';
+import { Truck, CheckCircle2, Clock, PackageCheck, ArrowRight, XCircle } from 'lucide-react';
 import axios from 'axios';
 
 export default function Fulfillment() {
@@ -75,14 +75,29 @@ export default function Fulfillment() {
                 Total Amount: <span className="font-bold">₹{q.totalAmount?.toFixed(2)}</span>
               </div>
 
+              <div className="flex gap-2">
               {nextStatus && (
                 <button 
                   onClick={() => updateStatus(q.id, nextStatus)}
-                  className="w-full flex items-center justify-center py-2 bg-white border border-slate-200 rounded-lg text-sm font-bold text-slate-600 hover:text-blue-600 hover:border-blue-600 hover:bg-blue-50 transition-colors"
+                  className="flex-1 flex items-center justify-center py-2 bg-white border border-slate-200 rounded-lg text-sm font-bold text-slate-600 hover:text-blue-600 hover:border-blue-600 hover:bg-blue-50 transition-colors"
                 >
                   {nextLabel} <ArrowRight className="w-4 h-4 ml-1.5" />
                 </button>
               )}
+              {q.status !== 'DELIVERED' && q.status !== 'SHIPPED' && q.status !== 'CANCELLED' && (
+                <button 
+                  onClick={() => {
+                     if (confirm('Are you sure you want to cancel this order? This will revert the reserved inventory.')) {
+                         updateStatus(q.id, 'CANCELLED');
+                     }
+                  }}
+                  title="Cancel Order"
+                  className="flex-none flex items-center justify-center px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm font-bold text-slate-400 hover:text-rose-600 hover:border-rose-600 hover:bg-rose-50 transition-colors"
+                >
+                  <XCircle className="w-4 h-4" />
+                </button>
+              )}
+              </div>
             </div>
           ))
         )}
@@ -133,6 +148,7 @@ export default function Fulfillment() {
     </div>
   );
 }
+
 
 
 
